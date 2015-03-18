@@ -26,13 +26,20 @@ sigma = zeros(1, size(X, 2));
 % Hint: You might find the 'mean' and 'std' functions useful.
 %       
 
+sizeTrainingX = size(X,1);
+mu = mean(X);
+sigma = std(X);
+%X_norm = (X-mu)./sigma;
 
+for iter = 1:sizeTrainingX
+    X_norm(iter,:) = (X(iter,:) - mu)./sigma;
+end
 
-
-
-
-
-
+% fprintf('Mean is : %f \n', mu);
+% fprintf('SD is : %f \n', sigma);
+% 
+% fprintf('X_norm is : ');
+% fprintf(' %f \n', X_norm);
 
 % ============================================================
 
