@@ -17,10 +17,12 @@ grad = zeros(size(theta));
 %               Compute the partial derivatives and set grad to the partial
 %               derivatives of the cost w.r.t. each parameter in theta
 
+[interJ, interGrad] = costFunction(theta, X, y);
 
+J = interJ + (lambda/(2*m))*((theta'*theta)- theta(1)*theta(1));
 
-
-
+grad = interGrad + (lambda/m)*theta';
+grad(1) = interGrad(1);
 
 % =============================================================
 
