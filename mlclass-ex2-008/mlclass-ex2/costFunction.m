@@ -20,12 +20,13 @@ grad = zeros(size(theta));
 % Note: grad should have the same dimensions as theta
 %
 
+JSig = sigmoid(X*theta);
 
+J1Term = (y)' * log(JSig);
+J2Term = (1-y)' * log(1 - JSig);
 
-
-
-
-
+J = (-1/m) * (J1Term + J2Term);
+grad = (1/m) * ((JSig-y)'*X);
 
 % =============================================================
 
