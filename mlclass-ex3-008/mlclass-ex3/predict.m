@@ -21,13 +21,25 @@ p = zeros(size(X, 1), 1);
 %       can use max(A, [], 2) to obtain the max for each row.
 %
 
+% Add intercept term to X
+X = [ones(m, 1) X];
+A1 = X';
+Z2 = Theta1*A1; % A1*Theta1';
+A2 = sigmoid(Z2);
 
+sizeA2 = size(A2',1);
 
+% Add intercept term to X
+newA2 = A2';
+newA2 = [ones(sizeA2,1) newA2];
 
+Z3 =  Theta2*newA2';
+A3 = sigmoid(Z3);
+A3Trans = A3';
 
+[M,I] = max(A3Trans,[],2);
 
-
-
+p = I;
 
 % =========================================================================
 
