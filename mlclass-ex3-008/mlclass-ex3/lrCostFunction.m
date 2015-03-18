@@ -36,14 +36,17 @@ grad = zeros(size(theta));
 %           grad = grad + YOUR_CODE_HERE (using the temp variable)
 %
 
+JSig = sigmoid(X*theta);
 
+J1Term = (y)' * log(JSig);
+J2Term = (1-y)' * log(1 - JSig);
 
+interJ = (-1/m) * (J1Term + J2Term);
+J = interJ + (lambda/(2*m))*((theta'*theta)- theta(1)*theta(1));
 
-
-
-
-
-
+interGrad = (1/m) * ((JSig-y)'*X);
+grad = interGrad + (lambda/m)*theta';
+grad(1) = interGrad(1);
 
 % =============================================================
 
