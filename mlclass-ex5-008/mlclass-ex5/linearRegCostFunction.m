@@ -19,16 +19,17 @@ grad = zeros(size(theta));
 %               You should set J to the cost and grad to the gradient.
 %
 
+hypoPrediction = X*theta;
+diffTerm = (hypoPrediction - y);
+sqrErrors = diffTerm.*diffTerm;
+interJ = (1/(2*m))*sum(sqrErrors);
 
+regJ = (lambda/(2*m))*(sum(theta'*theta)- theta(1)*theta(1));
+J = interJ + regJ;
 
-
-
-
-
-
-
-
-
+interGrad = (1/m)*(X'*diffTerm);
+grad = interGrad + (lambda/m)*theta;
+grad(1) = interGrad(1);
 
 % =========================================================================
 
