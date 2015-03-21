@@ -11,6 +11,9 @@ function [C, sigma] = dataset3Params(X, y, Xval, yval)
 C = 1;
 sigma = 0.3;
 
+CSigmaArray = [0.01; 0.03; 0.1; 0.3; 1; 3; 10; 30;];
+meanSqErrorArray = zeros(size(CSigmaArray));
+
 % ====================== YOUR CODE HERE ======================
 % Instructions: Fill in this function to return the optimal C and sigma
 %               learning parameters found using the cross validation set.
@@ -23,11 +26,29 @@ sigma = 0.3;
 %        mean(double(predictions ~= yval))
 %
 
+computeCSigmaError = zeros(64,3);
 
+k=1;
+for i = 1:8
+    for j = 1:8
+        model = svmTrain(X, y, CSigmaArray(i), @(x1, x2) gaussianKernel(x1, x2, CSigmaArray(j)));
+        predictions = svmPredict(model, Xval);
+        computeCSigmaError(k,1) = CSigmaArray(i);
+        computeCSigmaError(k,2) = CSigmaArray(j);
+        computeCSigmaError(k,3) = mean(double(predictions ~= yval));
+        k=k+1;
+    end
+end;
 
+%Extract the third column containing the errors
+M = computeCSigmaError(:,3);
 
+%Find the minimum value (of this error column) and return its index)
+[M,idx]  = min(M);
 
-
+%Use this index to find the corresponding C and sigma values.
+C = computeCSigmaError(idx,1);
+sigma = computeCSigmaError(idx,2);
 
 % =========================================================================
 
