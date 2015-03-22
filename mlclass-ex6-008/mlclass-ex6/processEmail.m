@@ -96,15 +96,10 @@ while ~isempty(email_contents)
     % Note: You can use strcmp(str1, str2) to compare two strings (str1 and
     %       str2). It will return 1 only if the two strings are equivalent.
     %
-
-
-
-
-
-
-
-
-
+    
+    match = strcmp(str, vocabList);         % match will contain the matched word in the vocabList.
+    idx = find(match);                      %Once the word is found, get its index which will give us the corresponding number associated with the word.
+    word_indices = [word_indices ; idx];    %add this newly found index to the word_indices vector.
 
     % =============================================================
 
