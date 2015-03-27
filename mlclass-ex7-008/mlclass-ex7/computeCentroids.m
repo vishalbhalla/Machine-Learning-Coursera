@@ -26,12 +26,11 @@ centroids = zeros(K, n);
 % Note: You can use a for-loop over the centroids to compute this.
 %
 
-
-
-
-
-
-
+for j = 1:K
+    newlyAssignedPoints = find(idx==j);
+    newlyAssignedPointsCount = size(newlyAssignedPoints,1);
+    centroids(j,:) = (1/newlyAssignedPointsCount)*sum(X(newlyAssignedPoints,:));
+end;
 
 % =============================================================
 
