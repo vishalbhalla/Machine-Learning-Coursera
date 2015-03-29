@@ -21,10 +21,21 @@ idx = zeros(size(X,1), 1);
 % Note: You can use a for-loop over the examples to compute this.
 %
 
+m = size(X,1);
+% d = zeros(1,K);
+% 
+% for i = 1:m
+%      for j = 1:K
+%          d(j) = (X(i,1) - centroids(j,1)).^2 + (X(i,2) - centroids(j,2)).^2;
+%      end;
+%      [~,idx(i)] = min(d);
+% end;
 
-
-
-
+SqDiffErr = zeros(m,K);
+for j = 1:K
+    SqDiffErr(:,j) =(X(:,1) - centroids(j,1)).^2 + (X(:,2) - centroids(j,2)).^2;
+end;
+[~,idx] = min(SqDiffErr,[],2);
 
 
 % =============================================================
