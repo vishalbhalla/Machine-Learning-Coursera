@@ -22,21 +22,44 @@ idx = zeros(size(X,1), 1);
 %
 
 m = size(X,1);
+n = size(X,2);
 % d = zeros(1,K);
 % 
 % for i = 1:m
+%     d = zeros(1,K);
 %      for j = 1:K
-%          d(j) = (X(i,1) - centroids(j,1)).^2 + (X(i,2) - centroids(j,2)).^2;
+%          for k = 1:n
+%              d(j) = d(j) + (X(i,k) - centroids(j,k)).^n;
+%          end;
 %      end;
 %      [~,idx(i)] = min(d);
 % end;
 
-SqDiffErr = zeros(m,K);
-for j = 1:K
-    SqDiffErr(:,j) =(X(:,1) - centroids(j,1)).^2 + (X(:,2) - centroids(j,2)).^2;
-end;
-[~,idx] = min(SqDiffErr,[],2);
 
+% Satisfies Test case 2 b.
+% X = magic(8);
+% X = X(:, 2:4);
+% centroids = magic(4);
+% centroids = centroids(:,2:4);
+% findClosestCentroids(X, centroids)
+
+SumSqDiffErr = zeros(K,n);
+for i = 1:m
+    for j = 1:K
+        SqDiffErr = X(i,:) - centroids(j,:);
+        SumSqDiffErr(j,:) = sum(SqDiffErr.^2,2);
+    end;
+    [~,idx(i)] = min(SumSqDiffErr(:));
+end;
+
+
+% SumSqDiffErr = zeros(m,n);
+% for j = 1:K
+%         SqDiffErr = X - centroids(j);
+%         t = sum(SqDiffErr.^2,2);
+%         SumSqDiffErr(:,j) = sum(SqDiffErr.^2,2);
+% end;
+% [~,idx] = min(SumSqDiffErr,[],2);
 
 % =============================================================
 
