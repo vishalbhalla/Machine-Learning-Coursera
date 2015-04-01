@@ -21,14 +21,9 @@ sigma2 = zeros(n, 1);
 %               should contain variance of the i-th feature.
 %
 
-
-
-
-
-
-
-
-
+mu = mean(X);
+%Y = var(X,W) - Pass in 0 for W to use the default normalization by N-1, or 1 to use N.
+sigma2 = var(X,1);
 
 % =============================================================
 
