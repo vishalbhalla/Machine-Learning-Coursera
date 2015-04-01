@@ -36,7 +36,7 @@ n = size(X,2);
 % end;
 
 
-% Satisfies Test case 2 b.
+% Code changes to satisfy Test case 2 b. for n dimesnions.
 % X = magic(8);
 % X = X(:, 2:4);
 % centroids = magic(4);
