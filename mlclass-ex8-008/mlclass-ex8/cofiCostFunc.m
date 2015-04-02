@@ -41,18 +41,10 @@ Theta_grad = zeros(size(Theta));
 %
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+Diff = X*Theta' - Y;
+SqDiff = Diff.^2;
+total = sum(sum(SqDiff(R == 1)));
+J= 0.5 * total;
 
 
 % =============================================================
