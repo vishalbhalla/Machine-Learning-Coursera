@@ -46,7 +46,19 @@ SqDiff = Diff.^2;
 total = sum(sum(SqDiff(R == 1)));
 J= 0.5 * total;
 
+for i = 1:num_movies
+    idx = find(R(i, :)==1);
+    ThetaTemp = Theta(idx,:);
+    YTemp = Y(i,idx);
+    X_grad(i,:) = ((X(i,:) * ThetaTemp') - YTemp) * ThetaTemp;
+end;
 
+for i = 1:num_users 
+    idx = find(R(:,i)==1);
+    XTemp = X(idx,:);
+    YTemp = Y(idx,i);
+    Theta_grad(i,:) = ((XTemp * Theta(i,:)') - YTemp)' * XTemp;
+end;
 % =============================================================
 
 grad = [X_grad(:); Theta_grad(:)];
