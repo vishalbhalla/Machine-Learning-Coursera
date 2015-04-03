@@ -58,6 +58,8 @@ for i = 1:num_movies
     
     % Regularized Cost Term for X
     JRegX = JRegX + sum(X(i,:).^2);
+    % Regularized Gradient Term for X
+    X_grad(i,:) = X_grad(i,:) + (lambda * X(i,:));
 end;
 
 for i = 1:num_users 
@@ -68,6 +70,8 @@ for i = 1:num_users
     
     % Regularized Cost Term for Theta
     JRegTheta = JRegTheta + sum(Theta(i,:).^2);
+    % Regularized Gradient Term for Theta
+    Theta_grad(i,:) = Theta_grad(i,:) + (lambda * Theta(i,:));
 end;
 % =============================================================
 
