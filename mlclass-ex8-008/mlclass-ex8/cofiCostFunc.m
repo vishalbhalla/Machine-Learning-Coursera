@@ -17,6 +17,10 @@ J = 0;
 X_grad = zeros(size(X));
 Theta_grad = zeros(size(Theta));
 
+% Initialize Regularization Cost Terms for X and Theta to 0.
+JRegX = 0;
+JRegTheta = 0;
+
 % ====================== YOUR CODE HERE ======================
 % Instructions: Compute the cost function and gradient for collaborative
 %               filtering. Concretely, you should first implement the cost
@@ -51,6 +55,9 @@ for i = 1:num_movies
     ThetaTemp = Theta(idx,:);
     YTemp = Y(i,idx);
     X_grad(i,:) = ((X(i,:) * ThetaTemp') - YTemp) * ThetaTemp;
+    
+    % Regularized Cost Term for X
+    JRegX = JRegX + sum(X(i,:).^2);
 end;
 
 for i = 1:num_users 
@@ -58,9 +65,15 @@ for i = 1:num_users
     XTemp = X(idx,:);
     YTemp = Y(idx,i);
     Theta_grad(i,:) = ((XTemp * Theta(i,:)') - YTemp)' * XTemp;
+    
+    % Regularized Cost Term for Theta
+    JRegTheta = JRegTheta + sum(Theta(i,:).^2);
 end;
 % =============================================================
 
 grad = [X_grad(:); Theta_grad(:)];
+
+%Regularized Cost
+J = J + (lambda/2)*(JRegX + JRegTheta);
 
 end
