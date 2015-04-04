@@ -85,6 +85,11 @@ J = sum(sum(interJ));
 
 J = (1/m) * J;
 
+% Regularized Cost Function Components for Theta1 and Theta2
+regJTheta1 = sum(sum(Theta1.^2)) - sum(Theta1(:,1).^2);
+regJTheta2 = sum(sum(Theta2.^2)) - sum(Theta2(:,1).^2);
+J = J + (lambda/(2*m)) *(regJTheta1 + regJTheta2);
+
 % -------------------------------------------------------------
 
 % =========================================================================
