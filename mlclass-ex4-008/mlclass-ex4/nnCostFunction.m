@@ -62,23 +62,28 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+X = [ones(m, 1) X];
+interHypoX = sigmoid(X*Theta1');
+interHypoX = [ones(m, 1) interHypoX];
+HypoX = sigmoid(interHypoX*Theta2');
 
+sizeY = size(y,1);  
+newY = [];
+for k = 1:sizeY;
+    classLabel = y(k);
+    vectorY = zeros(1,num_labels);
+    vectorY(classLabel) = 1;
+    newY = [newY ; vectorY];
+end;
+          
+a = log(HypoX);
+J1Term = -1 * newY.* a;
+b = log(1 - HypoX);
+J2Term = (1-newY).* b;
+interJ = J1Term - J2Term;
+J = sum(sum(interJ));
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+J = (1/m) * J;
 
 % -------------------------------------------------------------
 
