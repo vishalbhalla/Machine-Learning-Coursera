@@ -95,10 +95,16 @@ J = J + (lambda/(2*m)) *(regJTheta1 + regJTheta2);
 
 % Backpropagation algorithm for (unregularized) neural network cost function
 Delta3 = HypoX - newY;
-Theta2 = Theta2(:,2:end);
-Delta2 = (Delta3*Theta2).*sigmoidGradient(z2);
-Theta1_grad = Delta2' * a1;
-Theta2_grad = Delta3' * a2;
+Theta2Del = Theta2(:,2:end);
+Delta2 = (Delta3*Theta2Del).*sigmoidGradient(z2);
+
+% Regularized Backpropagation Components for Theta1 and Theta2
+sizeT1 = size(Theta1,1);
+Theta1(:,1) = zeros(sizeT1, 1);
+sizeT2 = size(Theta2,1);
+Theta2(:,1) = zeros(sizeT2, 1);
+Theta1_grad = Delta2' * a1 + lambda * Theta1;
+Theta2_grad = Delta3' * a2 + lambda * Theta2;
 
 % -------------------------------------------------------------
 
