@@ -62,10 +62,12 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
-X = [ones(m, 1) X];
-interHypoX = sigmoid(X*Theta1');
-interHypoX = [ones(m, 1) interHypoX];
-HypoX = sigmoid(interHypoX*Theta2');
+a1 = [ones(m, 1) X];
+z2 = a1*Theta1';
+interHypoX = sigmoid(z2);
+a2 = [ones(m, 1) interHypoX];
+z3 = a2*Theta2';
+HypoX = sigmoid(z3);
 
 sizeY = size(y,1);  
 newY = [];
@@ -90,6 +92,14 @@ regJTheta1 = sum(sum(Theta1.^2)) - sum(Theta1(:,1).^2);
 regJTheta2 = sum(sum(Theta2.^2)) - sum(Theta2(:,1).^2);
 J = J + (lambda/(2*m)) *(regJTheta1 + regJTheta2);
 
+
+% Backpropagation algorithm for (unregularized) neural network cost function
+Delta3 = HypoX - newY;
+Theta2 = Theta2(:,2:end);
+Delta2 = (Delta3*Theta2).*sigmoidGradient(z2);
+Theta1_grad = Delta2' * a1;
+Theta2_grad = Delta3' * a2;
+
 % -------------------------------------------------------------
 
 % =========================================================================
@@ -97,5 +107,7 @@ J = J + (lambda/(2*m)) *(regJTheta1 + regJTheta2);
 % Unroll gradients
 grad = [Theta1_grad(:) ; Theta2_grad(:)];
 
+% Backpropagation algorithm for (unregularized) neural network cost function
+grad = grad./m;
 
 end
